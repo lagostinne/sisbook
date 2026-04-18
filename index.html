@@ -904,7 +904,7 @@ function carregarDados() {
   return Promise.all([
     supaFetch('unidades?select=*&order=nome'),
     supaFetch('ucfg?select=*'),
-    supaFetch('Usu%C3%A1rios?select=*&order=nome'),
+    supaFetch('usuarios?select=*&order=nome'),
     supaFetch('reservas?select=*&order=data.desc&limit=500'),
     supaFetch('fila?select=*&status=eq.aguardando&order=chegou')
   ]).then(function(results) {
@@ -1047,9 +1047,9 @@ var DB = {
       visualiza:user.visualiza||[]
     };
     if (isEdit) {
-      return supaFetch('Usu%C3%A1rios?id=eq.' + user.id, {method:'PATCH', body:JSON.stringify(row)});
+      return supaFetch('usuarios?id=eq.' + user.id, {method:'PATCH', body:JSON.stringify(row)});
     } else {
-      return supaFetch('Usu%C3%A1rios', {method:'POST', body:JSON.stringify(row)}).then(function(rows) {
+      return supaFetch('usuarios', {method:'POST', body:JSON.stringify(row)}).then(function(rows) {
         if (rows && rows[0]) user.id = rows[0].id;
         return rows;
       });
@@ -1057,7 +1057,7 @@ var DB = {
   },
 
   excluirUser: function(id) {
-    return supaFetch('Usu%C3%A1rios?id=eq.' + id, {method:'DELETE'});
+    return supaFetch('usuarios?id=eq.' + id, {method:'DELETE'});
   },
 
   // FILA
@@ -3120,7 +3120,7 @@ var _now = new Date(); grafY = _now.getFullYear(); grafM = _now.getMonth();
 
 // Carrega usuários do banco antes de liberar o login
 showLoadingOverlay(true);
-supaFetch('Usu%C3%A1rios?select=id,nome,usuario,email,senha,perfil,acesso_fila,editar_fila,unidade,visualiza,ultimo_acesso')
+supaFetch('usuarios?select=id,nome,usuario,email,senha,perfil,acesso_fila,editar_fila,unidade,visualiza,ultimo_acesso')
   .then(function(rows) {
     USERS = (rows || []).map(function(u) {
       return {
