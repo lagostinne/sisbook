@@ -1407,10 +1407,30 @@ function renderMonth(cont) {
   for (var i = fd-1; i >= 0; i--) cells.push({day:dip-i, other:true});
   for (var d = 1; d <= dim; d++)   cells.push({day:d, other:false});
   while (cells.length % 7 !== 0)  cells.push({day:cells.length-fd-dim+1, other:true});
+  var prevM = curM === 0 ? 11 : curM - 1;
+  var prevY = curM === 0 ? curY - 1 : curY;
+  var nextM = curM === 11 ? 0 : curM + 1;
+  var nextY = curM === 11 ? curY + 1 : curY;
+  var leadingCount = fd > 0 ? fd - 1 : 0; // number of leading overflow cells
+  var cellIdx = 0;
   cells.forEach(function(c){
-    var ds = curY+'-'+String(curM+1).padStart(2,'0')+'-'+String(c.day).padStart(2,'0');
+    // Compute correct year/month for each cell
+    var cellY, cellM;
+    if (c.other) {
+      if (cellIdx < leadingCount) {
+        // Leading overflow = previous month
+        cellY = prevY; cellM = prevM;
+      } else {
+        // Trailing overflow = next month
+        cellY = nextY; cellM = nextM;
+      }
+    } else {
+      cellY = curY; cellM = curM;
+    }
+    cellIdx++;
+    var ds = cellY+'-'+String(cellM+1).padStart(2,'0')+'-'+String(c.day).padStart(2,'0');
     var isT = !c.other && curY===today.getFullYear() && curM===today.getMonth() && c.day===today.getDate();
-    var rv = RES.filter(function(r){ return r.data===ds && activeUnits[r.uid]; });
+    var rv = c.other ? [] : RES.filter(function(r){ return r.data===ds && activeUnits[r.uid]; });
     // Check if ALL visible active units are closed on this day
     var visUnits = Object.keys(activeUnits).filter(function(id){ return activeUnits[id]; });
     var isClosed = !c.other && visUnits.length > 0 && visUnits.every(function(uid){
