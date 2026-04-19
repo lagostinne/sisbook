@@ -178,7 +178,7 @@ html,body{min-height:100vh;font-family:var(--fb);font-size:15px;color:var(--t1);
   <div class="step" id="st-4"><span class="step-num">4</span> Confirmar</div>
 </div>
 
-<div class="main">
+<div id="res-loading" style="display:flex;position:fixed;inset:0;background:rgba(255,255,255,.95);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:14px"><div style="width:36px;height:36px;border:3px solid #e0e0e0;border-top-color:#2c2c2c;border-radius:50%;animation:spin .8s linear infinite"></div><div style="font-size:13px;color:#888;font-family:Inter,sans-serif">Carregando unidades...</div></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style><div class="main" id="res-content" style="display:none">
 
   <!-- PASSO 1 -->
   <div class="passo active" id="p1">
@@ -310,21 +310,87 @@ html,body{min-height:100vh;font-family:var(--fb);font-size:15px;color:var(--t1);
   </div>
 
 </div>
+</div><!-- /res-content -->
 <div class="toast" id="toast"></div>
 <script>
-var UNITS = [
-  {id:'rio',      nome:'Lagostinne Rio',              apelido:'Rio',      cidade:'Rio de Janeiro', cor:'#2d6e2d', status:'ativa'},
-  {id:'pizzaria', nome:'Lagostinne Pizzaria Rio',      apelido:'Pizzaria', cidade:'Rio de Janeiro', cor:'#2d2d7a', status:'ativa'},
-  {id:'varjota',  nome:'Lagostinne Fortaleza Varjota', apelido:'Varjota',  cidade:'Fortaleza',      cor:'#7a5510', status:'ativa'},
-  {id:'sul',      nome:'Lagostinne Fortaleza Sul',     apelido:'Sul',      cidade:'Fortaleza',      cor:'#7a2d2d', status:'ativa'}
-];
+var SUPA_URL = 'https://pavokgxdumlmlxnczytd.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhdm9rZ3hkdW1sbWx4bmN6eXRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjA3NjUsImV4cCI6MjA5MjAzNjc2NX0.IaupGohKLYD2eCp_1XrZualgo_gTSQgE0PL3__PeW9Y';
 
-var UCFG = {
-  rio:      {maxR:30, maxRAlm:30, maxRJan:30, minP:1, maxP:6, minPAlm:1, maxPAlm:6, minPJan:1, maxPJan:6, almoco:true,  jantar:true,  horario:false, horarios:[], horarioAlm:[], horarioJan:[], areaExt:true,  fechados:[], regras:'A reserva garante sua mesa por ate 15 minutos apos o horario marcado.\nCancelamentos devem ser feitos com no minimo 2 horas de antecedencia.\nPara grupos acima de 6 pessoas, entre em contato diretamente com o restaurante.', emailAssunto:'Confirmação de Reserva — Lagostinne', emailjsPublicKey:'', emailjsService:'', emailjsTemplate:''},
-  pizzaria: {maxR:20, maxRAlm:0,  maxRJan:20, minP:2, maxP:8, minPAlm:2, maxPAlm:8, minPJan:2, maxPJan:8, almoco:false, jantar:true,  horario:true,  horarios:['19:00','19:30','20:00','20:30','21:00'], horarioAlm:[], horarioJan:['19:00','19:30','20:00','20:30','21:00'], areaExt:false, fechados:[], regras:'A reserva garante sua mesa por ate 15 minutos apos o horario marcado.\nCancelamentos devem ser feitos com no minimo 2 horas de antecedencia.', emailAssunto:'Confirmação de Reserva — Lagostinne', emailjsPublicKey:'', emailjsService:'', emailjsTemplate:''},
-  varjota:  {maxR:25, maxRAlm:25, maxRJan:25, minP:1, maxP:6, minPAlm:1, maxPAlm:6, minPJan:1, maxPJan:6, almoco:true,  jantar:true,  horario:false, horarios:[], horarioAlm:[], horarioJan:[], areaExt:true,  fechados:[], regras:'A reserva garante sua mesa por ate 15 minutos apos o horario marcado.\nCancelamentos devem ser feitos com no minimo 2 horas de antecedencia.', emailAssunto:'Confirmação de Reserva — Lagostinne', emailjsPublicKey:'VqCXB4vmYjTeLcSs8', emailjsService:'service_4h9a9xk', emailjsTemplate:'template_hje8mc9'},
-  sul:      {maxR:22, maxRAlm:22, maxRJan:22, minP:2, maxP:6, minPAlm:2, maxPAlm:6, minPJan:2, maxPJan:6, almoco:true,  jantar:true,  horario:false, horarios:[], horarioAlm:[], horarioJan:[], areaExt:true,  fechados:[], regras:'A reserva garante sua mesa por ate 15 minutos apos o horario marcado.\nCancelamentos devem ser feitos com no minimo 2 horas de antecedencia.', emailAssunto:'Confirmação de Reserva — Lagostinne', emailjsPublicKey:'VqCXB4vmYjTeLcSs8', emailjsService:'service_4h9a9xk', emailjsTemplate:'template_hje8mc9'}
-};
+function supaFetch(path) {
+  return fetch(SUPA_URL + '/rest/v1/' + path, {
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer ' + SUPA_KEY,
+      'Content-Type': 'application/json'
+    }
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(t); });
+    return r.json();
+  });
+}
+
+function normalizeDate(d) {
+  if (!d) return d;
+  var s = String(d);
+  if (s.indexOf('T') >= 0) return s.split('T')[0];
+  if (s.indexOf(' ') >= 0) return s.split(' ')[0];
+  return s.substring(0, 10);
+}
+
+function carregarDadosReservas() {
+  // Show loading
+  document.getElementById('res-loading').style.display = 'flex';
+  document.getElementById('res-content').style.display = 'none';
+
+  return Promise.all([
+    supaFetch('unidades?select=*&status=eq.ativa&order=nome'),
+    supaFetch('ucfg?select=*')
+  ]).then(function(results) {
+    var units   = results[0] || [];
+    var cfgRows = results[1] || [];
+
+    // Populate UNITS — only active ones
+    UNITS = units.map(function(u) {
+      return {id:u.id, nome:u.nome, apelido:u.apelido||u.nome, cidade:u.cidade||'', cor:u.cor||'#2c2c2c', status:u.status};
+    });
+
+    // Populate UCFG
+    UCFG = {};
+    cfgRows.forEach(function(row) {
+      UCFG[row.uid] = row.data || {};
+    });
+    // Default UCFG for units without config
+    UNITS.forEach(function(u) {
+      if (!UCFG[u.id]) UCFG[u.id] = {
+        maxR:30, maxRAlm:30, maxRJan:30,
+        minP:1, maxP:6, minPAlm:1, maxPAlm:6, minPJan:1, maxPJan:6,
+        almoco:true, jantar:true, horario:false,
+        horarios:[], horarioAlm:[], horarioJan:[],
+        areaExt:true, fechados:[], regras:''
+      };
+    });
+
+    // Show content
+    document.getElementById('res-loading').style.display = 'none';
+    document.getElementById('res-content').style.display = 'block';
+    buildUnitGrid();
+
+  }).catch(function(e) {
+    document.getElementById('res-loading').innerHTML =
+      '<div style="text-align:center;color:#c0392b">' +
+      '<div style="font-size:32px;margin-bottom:12px">⚠</div>' +
+      '<div style="font-size:14px;font-weight:600;margin-bottom:8px">Erro ao carregar</div>' +
+      '<div style="font-size:12px;color:#888;margin-bottom:16px">Não foi possível conectar ao sistema.<br>Verifique sua conexão e tente novamente.</div>' +
+      '<button onclick="location.reload()" style="padding:10px 24px;background:#2c2c2c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px">Tentar novamente</button>' +
+      '</div>';
+    console.error('Erro ao carregar dados:', e);
+  });
+}
+
+
+var UNITS = [];
+
+var UCFG = {};
 
 var MN = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 var sel = { uid:'', periodo:'', data:'', hora:'', nome:'', tel:'', email:'', pess:'1', area:'Sem preferência', obs:'' };
@@ -333,7 +399,7 @@ var calY = 0, calM = 0;
 (function init() {
   var now = new Date();
   calY = now.getFullYear(); calM = now.getMonth();
-  buildUnitGrid();
+  carregarDadosReservas();
 })();
 
 // ── STEPS ──
