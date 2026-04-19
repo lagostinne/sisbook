@@ -427,7 +427,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <hr class="sb-hr">
     <div class="sb-link-box editor-only">
       <div class="sb-link-lbl">Link de reserva</div>
-      <div class="sb-link-url">lagostinne_reservas.html</div>
+      <div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div>
       <div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div>
     </div>
     <div class="sb-user">
@@ -479,7 +479,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <div class="ni admin-only" data-goto="s-users"><span class="ni-ico">◎</span> Usuários</div>
     <div class="ni admin-only" data-goto="s-units"><span class="ni-ico">⊞</span> Unidades</div>
     <hr class="sb-hr">
-    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
+    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
     <div class="sb-user"><div class="sb-userrow"><div class="sb-av" id="sb-av-list">AL</div><div><div class="sb-uname" id="sb-un-list">Ana Lima</div><div class="sb-urole" id="sb-ur-list">Administrador</div></div></div><button class="sb-logout" onclick="doLogout()">Sair da conta</button></div>
   </nav>
   <div class="adm-main">
@@ -527,7 +527,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <div class="ni admin-only" data-goto="s-users"><span class="ni-ico">◎</span> Usuários</div>
     <div class="ni admin-only" data-goto="s-units"><span class="ni-ico">⊞</span> Unidades</div>
     <hr class="sb-hr">
-    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
+    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
     <div class="sb-user"><div class="sb-userrow"><div class="sb-av" id="sb-av-cfg">AL</div><div><div class="sb-uname" id="sb-un-cfg">Ana Lima</div><div class="sb-urole" id="sb-ur-cfg">Administrador</div></div></div><button class="sb-logout" onclick="doLogout()">Sair da conta</button></div>
   </nav>
   <div class="adm-main">
@@ -558,7 +558,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <div class="ni active admin-only" data-goto="s-users"><span class="ni-ico">◎</span> Usuários</div>
     <div class="ni admin-only" data-goto="s-units"><span class="ni-ico">⊞</span> Unidades</div>
     <hr class="sb-hr">
-    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
+    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
     <div class="sb-user"><div class="sb-userrow"><div class="sb-av" id="sb-av-users">AL</div><div><div class="sb-uname" id="sb-un-users">Ana Lima</div><div class="sb-urole" id="sb-ur-users">Administrador</div></div></div><button class="sb-logout" onclick="doLogout()">Sair da conta</button></div>
   </nav>
   <div class="adm-main">
@@ -596,7 +596,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <div class="ni admin-only" data-goto="s-users"><span class="ni-ico">◎</span> Usuários</div>
     <div class="ni active admin-only" data-goto="s-units"><span class="ni-ico">⊞</span> Unidades</div>
     <hr class="sb-hr">
-    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
+    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
     <div class="sb-user"><div class="sb-userrow"><div class="sb-av" id="sb-av-units">AL</div><div><div class="sb-uname" id="sb-un-units">Ana Lima</div><div class="sb-urole" id="sb-ur-units">Administrador</div></div></div><button class="sb-logout" onclick="doLogout()">Sair da conta</button></div>
   </nav>
   <div class="adm-main">
@@ -637,7 +637,7 @@ body.sb-collapsed .sidebar{width:0!important;min-width:0!important;overflow:hidd
     <div class="ni admin-only" data-goto="s-users"><span class="ni-ico">◎</span> Usuários</div>
     <div class="ni admin-only" data-goto="s-units"><span class="ni-ico">⊞</span> Unidades</div>
     <hr class="sb-hr">
-    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
+    <div class="sb-link-box editor-only"><div class="sb-link-lbl">Link de reserva</div><div class="sb-link-url" id="sb-res-url">lagostinne_reservas.html</div><div class="sb-link-actions"><button class="sb-copy" onclick="copyLink(this)">⎘ Copiar</button><a href="lagostinne_reservas.html" target="_blank" style="flex:1;padding:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--sbt);font-family:var(--fb);font-size:10px;font-weight:500;cursor:pointer;border-radius:2px;text-decoration:none;text-align:center">&#128197; Reservar online</a></div></div>
     <div class="sb-user"><div class="sb-userrow"><div class="sb-av" id="sb-av-fila">AL</div><div><div class="sb-uname" id="sb-un-fila">Ana Lima</div><div class="sb-urole" id="sb-ur-fila">Administrador</div></div></div><button class="sb-logout" onclick="doLogout()">Sair da conta</button></div>
   </nav>
 
@@ -2596,7 +2596,8 @@ function showToast(msg,type) {
 // COPY LINK
 // ─────────────────────────────────────────────
 function copyLink(btn) {
-  var url=window.location.href.split('#')[0]+'#reservar';
+  var base=window.location.href.split('/').slice(0,-1).join('/');
+  var url=window.location.origin+'/lagostinne_reservas.html';
   var orig=btn.textContent;
   if(navigator.clipboard){
     navigator.clipboard.writeText(url).then(function(){btn.textContent='Copiado!';btn.classList.add('copied');setTimeout(function(){btn.textContent=orig;btn.classList.remove('copied');},2000);});
@@ -2935,7 +2936,7 @@ function startAutoSync() {
   _syncInterval = setInterval(function() {
     if (!currentUser) return;
     syncFilaEReservas();
-  }, 15000); // a cada 15 segundos
+  }, 10000); // a cada 10 segundos // a cada 15 segundos
 }
 
 function stopAutoSync() {
@@ -3380,6 +3381,13 @@ supaFetch('usuarios?select=id,nome,usuario,email,senha,perfil,acesso_fila,editar
     showToast('Erro ao conectar ao banco. Verifique a conexão.', 'danger');
     initLogin();
   });
+
+// Update sidebar link display with correct URL
+(function() {
+  var els = document.querySelectorAll('#sb-res-url');
+  var url = window.location.origin + '/lagostinne_reservas.html';
+  els.forEach(function(el) { el.textContent = url; });
+})();
 </script>
 </body>
 </html>
